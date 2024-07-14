@@ -1,0 +1,1 @@
+# This is a cricket game that displays score along with a reset button to restart the game
