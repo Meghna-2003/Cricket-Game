@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bat Ball Stump Game</title>
+   <link rel="stylesheet" href="css/game.css">
+   
+</head>
+<body> 
+   
+   <h1>Bat Ball Stump Game</h1>
+   <br>
+   <button class="all-buttons" onclick=" 
+   document.querySelector('#usertext').innerText=`User has chosen Bat`;
+   generateComputerChoice();
+   let computerchoice=generateComputerChoice();
+   let resultmove = getResult('Bat',computerchoice);
+   showResult(resultmove);
+   "><img src="images/bat.png" alt="Bat image" class="all-images"></button>
+   <button class="all-buttons" onclick=" 
+   document.querySelector('#usertext').innerText=`User has chosen Ball`;
+   generateComputerChoice();
+    computerchoice=generateComputerChoice();
+    resultmove = getResult('Ball',computerchoice);
+    showResult(resultmove);
+   " ><img src="images/ball.png" alt="Ball image" class="all-images"></button>
+   <button class="all-buttons" onclick=" 
+   document.querySelector('#usertext').innerText=`User has chosen Stump`;
+   generateComputerChoice();
+    computerchoice=generateComputerChoice();
+    resultmove = getResult('Stump',computerchoice);
+    showResult(resultmove);
+   " ><img src="images/stump.png" alt="Stump image" class="all-images"></button>
+   <h6 class="all-style" id="usertext"></h6> 
+   <h6 class="all-style" id="computertext"></h6>
+   <h6 class="all-style" id="result"></h6>
+   <button onclick="localStorage.clear();
+     resetScore();
+     document.querySelector('#usertext').innerText=``;
+     document.querySelector('#computertext').innerText=``;
+     document.querySelector('#result').innerText=``;
+
+     
+
+     ">Reset</button>
+   
+<script>
+  //let userchoice;
+   //let computerchoice;
+   
+   let scorestr=localStorage.getItem('Score');
+   let score;
+   
+   resetScore(scorestr);
+   function resetScore(scorestr){
+   if(scorestr!=undefined){
+        score=JSON.parse(scorestr);
+   }
+   else{
+   score={
+     win:0,
+     lost:0,
+     tie:0,
+     
+   };
+
+  }
+
+     score.displayscore = function(){
+      return `\n \n Win:${this.win}, Lost:${this.lost}, Tie:${this.tie}`;
+     }
+   }
+
+   let element=document.getElementById("result");
+   element.innerText=`Win:${score.win}, Lost:${score.lost}, Tie:${score.tie}`;
+
+   function generateComputerChoice(){
+   let computerchoice;
+   let value=Math.random() * 3;
+   if(value>=0 && value<=1){
+     computerchoice='Bat';
+     }
+   if(value>1 && value<=2)
+     computerchoice='Ball';
+   if(value>2 && value<=3)
+     computerchoice='Stump';
+   document.querySelector('#computertext').innerText=`Computer has chosen ${computerchoice} `;
+   return computerchoice;
+   }
+   function getResult(userchoice,computermove){
+    if(userchoice==='Bat'){
+      if(computermove==='Bat'){
+        score.tie++;
+        return 'It is a tie';
+      }
+      else if(computermove==='Ball'){
+      score.win++;
+      return 'User won';
+      }
+      else{
+      score.lost++;
+      return 'Computer won';
+      }
+   }
+   else if(userchoice ==='Ball'){
+    if(computermove==='Bat'){
+      score.lost++;
+    return 'Computer won';
+    }
+    else if(computermove==='Ball'){
+      score.tie++;
+    return 'It is a tie';
+    }
+    else{
+      score.win++;
+    return 'User won';
+    }
+   }
+   else{
+    if(computermove==='Bat'){
+      score.win++;
+    return 'User won';
+    }
+    else if(computermove==='Ball'){
+      score.lost++;
+    return 'Computer won';
+    }
+    else{
+      score.tie++;
+    return 'It is a tie';
+    }
+  }
+  }
+  function showResult(resultmove){
+    localStorage.setItem('Score',JSON.stringify(score));
+    document.querySelector('#result').innerText=`${resultmove}
+    ${score.displayscore()}`;
+  }
+</script>
+</body>
+</html>

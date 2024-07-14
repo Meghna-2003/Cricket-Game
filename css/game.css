@@ -1,0 +1,18 @@
+body{
+      text-align: center;
+    }
+
+.all-buttons{
+       width:65px;
+       background-color: rgb(174, 226, 175);
+       border:none;
+       border-radius: 60px;
+       margin:10px;
+       cursor: pointer;
+    }
+.all-images{
+  height:55px;
+}
+.all-style{
+  font-size:17px ;
+}
